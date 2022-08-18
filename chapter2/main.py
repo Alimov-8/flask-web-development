@@ -31,6 +31,14 @@ class User(db.Model):
         return f"<User '{self.username}'>"
 
 
+tags = db.Table(
+    'post_tags',
+    
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+)
+
+
 class Post(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(255))
@@ -41,6 +49,13 @@ class Post(db.Model):
         backref='post',
         lazy='dynamic'
     )
+
+    tags = db.relationship(
+        'Tag',
+        secondary=tags,
+        backref=db.backref('posts', lazy='dynamic')
+    )
+
 
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     
@@ -61,6 +76,17 @@ class Comment(db.Model):
     
     def __repr__(self):
         return f"<Comment '{self.text[:15]}'>"
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    title = db.Column(db.String(255))
+    
+    def __init__(self, title) -> None:
+        self.title = title
+    
+    def __repr__(self) -> str:
+        return f"<Tag '{self.title}'>"
 
 
 # if __name__ == '__main__':
