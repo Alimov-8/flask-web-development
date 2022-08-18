@@ -161,6 +161,34 @@ create, read, update, and delete
     >>> db.session.commit()
 
 
+# Relationships between models
+
+## One to Many
+
+    class User(db.Model):
+        posts = db.relationship(
+            'Post',
+            backref='user',
+            lazy='dynamic',
+        )
+
+    class Post(db.Model):
+        id = db.Column(db.Integer(), primary_key=True)
+        user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+
+`dynamic` - option, the related objects will be loaded upon
+access and can be filtered down before returning.
+
+    >>> user = User.query.get(1)
+    >>> new_post = Post('Post Title')
+    >>> new_post.user_id = user.id
+    >>> user.posts
+    []
+    >>> db.session.add(new_post)
+    >>> db.session.commit()
+    >>> user.posts
+    [<Post 'Post Title'>]
+
 
 
 
