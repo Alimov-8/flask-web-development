@@ -190,6 +190,24 @@ access and can be filtered down before returning.
     [<Post 'Post Title'>]
 
 
+## One to Many
 
+    tags = db.Table(
+        'post_tags',
+        
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+        db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    )
 
+    post_id   tag_id
+    1         1
+    1         3
+    2         3
+
+    post = Post.query.get(1)
+    tag1 = Tag('first')
+    tag2 = tag('second')
+    post.tags = [tag1, tag2]
+    db.session.add(post)
+    db.session.commit()
 
