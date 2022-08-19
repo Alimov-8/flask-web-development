@@ -12,3 +12,9 @@ Mastering Flask Web Development
     - Flask SQLAlchemy
     - Database URI and Tables
     - CRUD with ORM
+    - Relationships
+    - Constraints, Index, Session
+    - Alembic migrations
+
+- `Chapter 3`
+    - ...

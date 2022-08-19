@@ -15,12 +15,12 @@ object-relational mismatches
 
 ## Database URI
 
-` databasetype+driver://user:password@host:port/db_name `
+`databasetype+driver://user:password@host:port/db_name`
 
     # SQLite connection string/uri is a path to the database file - relative or
     absolute.
     sqlite:///database.db
-    
+
     # MySQL
     mysql+pymysql://user:password@ip:port/db_name
 
@@ -33,7 +33,7 @@ object-relational mismatches
     # Oracle
     oracle+cx_oracle://user:password@ip:port/db_name
 
-Types 
+Types
 
     db.String
     db.Text
@@ -44,13 +44,11 @@ Types
     db.DateTime
     db.Time
 
-
 `SQLALCHEMY_ECHO = True` - shows how SQLAlchemy translates your code
 into SQL queries
 
-
     # Tell Flask where to load our shell context
-    $ export FLASK_APP=manage.py (linux) 
+    $ export FLASK_APP=manage.py (linux)
     $ set "FLASK_APP=manage.py" (windows)
 
     $ flask shell
@@ -59,10 +57,9 @@ into SQL queries
     $ sqlite3 database.db .tables
     user
 
+## CRUD
 
-## CRUD 
-create, read, update, and delete 
-
+create, read, update, and delete
 
 ### CREAT
 
@@ -110,7 +107,7 @@ create, read, update, and delete
 
     # How many pages?
     >>> page.pages
-    
+
     >>> page.has_prev, page.has_next
     (False, False)
 
@@ -119,7 +116,8 @@ create, read, update, and delete
     >>> page.prev(), page.next()
 
 ## READ FILTER
-    # query.filter_by on exact values 
+
+    # query.filter_by on exact values
     >>> users = User.query.filter_by(username='fake_name').all()
 
     #
@@ -130,24 +128,24 @@ create, read, update, and delete
 ## READ COMPLEX with NOT, IN, OR
 
     >>> from sqlalchemy.sql.expression import not_, or_
-    
+
     >>> user = User.query.filter(
             User.username.in_(['fake_name']),
             User.password == None
         ).first()
-    
+
     # find all of the users with a password
     >>> user = User.query.filter(
             not_(User.password == None)
         ).first()
-    
+
     # all of these methods are able to be combined
     >>> user = User.query.filter(
             or_(not_(User.password == None), User.id >= 1)
         ).first()
 
-
 ## UPDATE
+
     >>> User.query.filter_by(username='fake_name').update({
         'password': 'test'
     })
@@ -156,10 +154,10 @@ create, read, update, and delete
     >>> db.session.commit()
 
 ## DELETE
+
     >>> user = User.query.filter_by(username='fake_name').first()
     >>> db.session.delete(user)
     >>> db.session.commit()
-
 
 # Relationships between models
 
@@ -189,12 +187,11 @@ access and can be filtered down before returning.
     >>> user.posts
     [<Post 'Post Title'>]
 
-
 ## One to Many
 
     tags = db.Table(
         'post_tags',
-        
+
         db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
         db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     )
@@ -212,29 +209,48 @@ access and can be filtered down before returning.
     db.session.commit()
 
 ## Constraints & Indexes
+
 Constraints is considered a good practice. Restrict the domain of a
 certain model attribute and ensure data integrity and quality
 
 - Not NULL (ensures that a certain attribute contains data)
 - UNIQUE (ensures that a certain attribute value is always unique in the database
-table, which contains the model data)
+  table, which contains the model data)
 - DEFAULT (sets a default value for the attribute when no values were provided)
 - CHECK (used to specify range of values)
-
 
 indexes are used to improve query performance, but be careful to IUD and Storage
 index is used to reduce the
 O(N) lookup on certain table columns that may be frequently used.
 
-
 ## SQLAlchemy sessions
+
 - transactions automatically determine which objects are to be saved first when
-objects have relations (session automatically knew to save the tags
-first despite the fact that we did not add them to be committed)
+  objects have relations (session automatically knew to save the tags
+  first despite the fact that we did not add them to be committed)
 
 - the session makes it impossible for there to be two different references to the same
-row in the database. This is accomplished by ensuring that all queries go through the
-session (Model.query is actually db.session.query(Model)),
+  row in the database. This is accomplished by ensuring that all queries go through the
+  session (Model.query is actually db.session.query(Model)),
 
-`Important` -  Flask SQLAlchemy creates a new session for every request and discards
+`Important` - Flask SQLAlchemy creates a new session for every request and discards
 any changes that were not committed at the end of the request.
+
+## Alembic
+
+`Alembic` - which
+automatically creates and tracks database migrations from the changes in our SQLAlchemy
+models (allows upgrade and downgrade between versions)
+
+`Database migrations` are records of all the changes of our schema
+
+    # Tell Flask where is our app
+    $ export FLASK_APP=main.py
+    
+    $ flask db init
+
+    $ flask db migrate -m"initial commit"
+
+    $ flask db upgrade/downgrade
+
+    $ flask db history

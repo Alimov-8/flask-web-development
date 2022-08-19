@@ -1,7 +1,8 @@
-from datetime import datetime
+import datetime
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 from config import DevConfig
 
@@ -10,6 +11,7 @@ app = Flask(__name__)
 app.config.from_object(DevConfig)  # app.config['DEBUG']
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 class User(db.Model):
