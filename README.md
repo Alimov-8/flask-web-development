@@ -17,4 +17,4 @@ Mastering Flask Web Development
     - Alembic migrations
 
 - `Chapter 3`
-    - ...
+    - Template, Jinja's syntax 
