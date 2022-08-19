@@ -211,3 +211,30 @@ access and can be filtered down before returning.
     db.session.add(post)
     db.session.commit()
 
+## Constraints & Indexes
+Constraints is considered a good practice. Restrict the domain of a
+certain model attribute and ensure data integrity and quality
+
+- Not NULL (ensures that a certain attribute contains data)
+- UNIQUE (ensures that a certain attribute value is always unique in the database
+table, which contains the model data)
+- DEFAULT (sets a default value for the attribute when no values were provided)
+- CHECK (used to specify range of values)
+
+
+indexes are used to improve query performance, but be careful to IUD and Storage
+index is used to reduce the
+O(N) lookup on certain table columns that may be frequently used.
+
+
+## SQLAlchemy sessions
+- transactions automatically determine which objects are to be saved first when
+objects have relations (session automatically knew to save the tags
+first despite the fact that we did not add them to be committed)
+
+- the session makes it impossible for there to be two different references to the same
+row in the database. This is accomplished by ensuring that all queries go through the
+session (Model.query is actually db.session.query(Model)),
+
+`Important` -  Flask SQLAlchemy creates a new session for every request and discards
+any changes that were not committed at the end of the request.

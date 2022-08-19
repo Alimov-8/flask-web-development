@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,7 +16,7 @@ class User(db.Model):
     # __tablename__ = 'user_table_name'
 
     id = db.Column(db.Integer(), primary_key=True)
-    username = db.Column(db.String(255))
+    username = db.Column(db.String(255), nullable=False, index=True, unique=True)
     password = db.Column(db.String(255))
     posts = db.relationship(
         'Post',
@@ -41,7 +43,7 @@ tags = db.Table(
 
 class Post(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(255))
+    title = db.Column(db.String(255), nullable=False)
     text = db.Column(db.Text())
     publish_date = db.Column(db.DateTime())
     comments = db.relationship(
@@ -68,9 +70,9 @@ class Post(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String(255), nullable=False)
     text = db.Column(db.Text())
-    date = db.Column(db.DateTime())
+    date = db.Column(db.DateTime(), default=datetime.datetime.now)
     
     post_id = db.Column(db.Integer(), db.ForeignKey('post.id'))
     
@@ -80,7 +82,9 @@ class Comment(db.Model):
 
 class Tag(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(255))
+    title = db.Column(db.String(255), nullable=False, unique=True)
+    publish_date = db.Column(db.DateTime(), default=datetime.datetime.now)
+
     
     def __init__(self, title) -> None:
         self.title = title
