@@ -1,8 +1,11 @@
 class Config(object):
-    pass
+    POSTS_PER_PAGE = 10
+
 
 class ProdConfig(Config):
-    pass
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+
 
 class DevConfig(Config):
     DEBUG = True

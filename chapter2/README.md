@@ -254,3 +254,12 @@ models (allows upgrade and downgrade between versions)
     $ flask db upgrade/downgrade
 
     $ flask db history
+
+
+## Creating our views
+
+    GET /post/<POST_ID> to render a specific post by its ID. This also renders all recent posts and tags.
+
+    @app.route('/post/<int:post_id>')
+    def post(post_id)
+        post = Post.query.get_or_404(post_id)
