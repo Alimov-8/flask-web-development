@@ -263,3 +263,25 @@ models (allows upgrade and downgrade between versions)
     @app.route('/post/<int:post_id>')
     def post(post_id)
         post = Post.query.get_or_404(post_id)
+
+
+## Template Structuring
+- Include navbar: Jinja2 template: navbar.html—Renders a navigation bar.
+- Block head: The header with the name of the site. Already includes
+the head.html Jinja2 template.
+- Include messages: Jinja2 template: messages.html—Renders alerts for the
+users with different categories.
+- Block body:
+- Block left body: Normally, templates will override this block.
+- Block right body: This will display the most recent posts and tags.
+- Block footer: Jinja2 template: footer.html.
+
+        #Example 
+
+        {% extends "base.html" %}
+        {% import 'macros.html' as macros %}
+        {% block title %}Home{% endblock %}
+        {% block leftbody %}
+        {{ macros.render_posts(posts) }}
+        {{ macros.render_pagination(posts, 'home') }}
+        {% endblock %}
