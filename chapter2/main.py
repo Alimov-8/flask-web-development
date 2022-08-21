@@ -1,8 +1,9 @@
 import datetime
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from sqlalchemy import func
 
 from config import DevConfig
 
@@ -28,7 +29,7 @@ class User(db.Model):
     
     # username = db.Column('user_name', db.String(255))
 
-    def __init__(self, username) -> None:
+    def __init__(self, username="") -> None:
         self.username = username
 
     def __repr__(self) -> str:
@@ -63,7 +64,7 @@ class Post(db.Model):
 
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     
-    def __init__(self, title) -> None:
+    def __init__(self, title="") -> None:
         self.title = title
     
     def __repr__(self) -> str:
@@ -88,15 +89,13 @@ class Tag(db.Model):
     publish_date = db.Column(db.DateTime(), default=datetime.datetime.now)
 
     
-    def __init__(self, title) -> None:
+    def __init__(self, title="") -> None:
         self.title = title
     
     def __repr__(self) -> str:
         return f"<Tag '{self.title}'>"
 
 
-# if __name__ == '__main__':
-#     app.run()
 def sidebar_data():
     recent = Post.query.order_by(
         Post.publish_date.desc()

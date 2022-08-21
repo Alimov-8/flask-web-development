@@ -285,3 +285,25 @@ users with different categories.
         {{ macros.render_posts(posts) }}
         {{ macros.render_pagination(posts, 'home') }}
         {% endblock %}
+
+
+## Database fake data
+
+    def generate_users(n):
+        users = list()
+        
+        for i in range(n):
+            user = User()
+            user.username = faker.name()
+            user.password = "password"
+            
+            try:
+                db.session.add(user)
+                db.session.commit()
+                users.append(user)
+            
+            except Exception as e:
+                log.error("Fail to add user %s: %s" % (str(user), e))
+                db.session.rollback()
+        
+        return users
