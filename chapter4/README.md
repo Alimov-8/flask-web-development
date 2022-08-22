@@ -131,3 +131,86 @@ HTML string
         '/user',
         view_func=UserView.as_view('user')
     )
+
+
+## Blueprints
+
+`Blueprints` - Helps us to architect our project structure to make it scaleable for future. [One app has one actor]
+
+        Let's say that we wanted to add a photo sharing function to our site, we would be able to group all the view functions into one blueprint with its own templates, static folder, and URL prefix without any fear of disrupting the functionality of the rest of the site.
+
+- Example usecase
+
+        from flask import Blueprint
+        
+        example = Blueprint(
+            'example',
+            __name__,
+            template_folder='templates/example',
+            static_folder='static/example',
+            url_prefix="/example"
+        )
+        
+        @example.route('/')
+        def home():
+            return render_template('home.html')
+
+        app.register_blueprint(example)
+
+- Example filestructure 
+
+        ecommerce/
+        |
+        ├── api/
+        |   ├── __init__.py
+        |   └── api.py
+        |
+        ├── auth/
+        |   ├── templates/
+        |   |   └── auth/
+        |   |       ├── login.html
+        |   |       ├── forgot_password.html
+        |   |       └── signup.html
+        |   |
+        |   ├── __init__.py
+        |   └── auth.py
+        |
+        ├── cart/
+        |   ├── templates/
+        |   |   └── cart/
+        |   |       ├── checkout.html
+        |   |       └── view.html
+        |   |
+        |   ├── __init__.py
+        |   └── cart.py
+        |
+        ├── general/
+        |   ├── templates/
+        |   |   └── general/
+        |   |       └── index.html
+        |   |
+        |   ├── __init__.py
+        |   └── general.py
+        |
+        ├── products/
+        |   ├── static/
+        |   |   └── view.js
+        |   |
+        |   ├── templates/
+        |   |   └── products/
+        |   |       ├── list.html
+        |   |       └── view.html
+        |   |
+        |   ├── __init__.py
+        |   └── products.py
+        |
+        ├── static/
+        |   ├── logo.png
+        |   ├── main.css
+        |   └── generic.js
+        |
+        ├── app.py
+        ├── config.py
+        └── models.py
+
+

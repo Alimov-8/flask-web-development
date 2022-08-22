@@ -29,3 +29,4 @@ Mastering Flask Web Development
     - setup & teardown
     - error handling (404)
     - CBV in flask
+    - Blueprints, SRP

@@ -203,3 +203,8 @@ def posts_by_tag(tag_name):
         recent=recent,
         top_tags=top_tags
     )
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
