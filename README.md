@@ -18,3 +18,9 @@ Mastering Flask Web Development
 
 - `Chapter 3`
     - Template, Jinja's syntax 
+    - Template Structuring
+    - db, fake data generation
+    - views: CRUD functions
+    - WTForms: forms, fields, validators
+    - POST method save
+
