@@ -24,3 +24,8 @@ Mastering Flask Web Development
     - WTForms: forms, fields, validators
     - POST method save
 
+- `Chapter 4`
+    - sessions and globals
+    - setup & teardown
+    - error handling (404)
+    - CBV in flask
