@@ -178,5 +178,48 @@ users with different categories.
         return users
 
 
+## Secret key generation 
+
+    $ python
+    >>> import os
+    >>> os.urandom(24)
+    '\xa8\xcc\xeaP+\xb3\xe8|\xad\xdb\xea\xd0\xd4\xe8\xac\xee\xfaW\x072@O3'
 
 
+## WTForms
+
+    class CommentForm(Form):
+        name = StringField(
+            'Name',
+            validators=[DataRequired(), Length(max=255)]
+        )
+        text = TextAreaField(u'Comment', validators=[DataRequired()])
+
+
+The most commonly used fields
+
+- fields.DateField and fields.DateTimeField: Represents a Python date or
+datetime object and takes an optional parameter format that takes a stftime
+format string to translate the data.
+- fields.IntegerField: This attempts to coerce passed data to an integer and is
+rendered in the template as a number input.
+
+
+Validators list (can take optional message param)
+- validators.DataRequired()
+- validators.Email()
+- validators.Length(min=-1, max=-1)
+- validators.NumberRange(min=None, max=None)
+- validators.Optional()
+- validators.Regexp(regex)
+- validators.URL()
+
+## Custom Validator Creation
+
+    import re
+    import wtforms
+    def custom_email(form, field):
+        if not re.match(r"[^@]+@[^@]+.[^@]+", field.data):
+        raise wtforms.ValidationError(
+            'Field must be a valid email address.'
+        )

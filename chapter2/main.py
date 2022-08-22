@@ -95,6 +95,20 @@ class Tag(db.Model):
     def __repr__(self) -> str:
         return f"<Tag '{self.title}'>"
 
+"""-------------------- Forms --------------------"""
+
+class CommentForm(Form):
+    name = StringField(
+        'Name',
+        validators = [
+            DataRequired(),
+            Length(max=255),
+        ]
+    )
+    text = TextAreaField(u"Comment", validators=[DataRequired()])
+
+
+"""-------------------- Views --------------------"""
 
 def sidebar_data():
     recent = Post.query.order_by(
