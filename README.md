@@ -41,3 +41,6 @@ Mastering Flask Web Development
   - Refactoring the code
   - Application factories
 
+- `Chapter 6`
+
+  - Basic authentication
