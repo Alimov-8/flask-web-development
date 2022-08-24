@@ -44,3 +44,5 @@ Mastering Flask Web Development
 - `Chapter 6`
 
   - Basic authentication
+  - Remote-user authentication
+

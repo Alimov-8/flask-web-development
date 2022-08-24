@@ -49,3 +49,16 @@ internal use of a very simple back-office application, or for rapidly protecting
             }
         }
     }
+
+
+## Remote-user authentication
+
+In blog application, we could just check whether the user exists on the database, so no
+password database field is needed. 
+
+This authentication method can be considered secure if
+it is properly set up on the server, and can be very convenient on intranet setups since the
+user, if already authenticated on the domain will no longer
+need to fill login password again (using Kerberos GSSAPI..)
+
+Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network, like the internet. It uses secret-key cryptography and a trusted third party for authenticating client-server applications and verifying users' identities.
