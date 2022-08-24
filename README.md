@@ -47,4 +47,6 @@ Mastering Flask Web Development
   - Remote-user authentication
   - LDAP authentication 
   - Database authentication
+  - OpenID and OAuth
 
+  - Initial setups
