@@ -28,4 +28,24 @@ noticed in the code flow of the preceding example, the authentication method wil
 invoked on every request, so it is not very efficient. Yet this can be a good option for the
 internal use of a very simple back-office application, or for rapidly protecting a proof-ofconcept application.
 
+    # https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
+    
+    http {
+        server {
+            listen 192.168.1.23:8080;
+            root   /usr/share/nginx/html;
 
+            location /api {
+                api;
+                satisfy all;
+
+                deny  192.168.1.2;
+                allow 192.168.1.1/24;
+                allow 127.0.0.1;
+                deny  all;
+
+                auth_basic           "Administrator’s Area";
+                auth_basic_user_file /etc/apache2/.htpasswd; 
+            }
+        }
+    }
