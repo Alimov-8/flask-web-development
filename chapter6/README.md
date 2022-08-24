@@ -111,3 +111,10 @@ our user.
 
 
 
+## Setup 
+
+To run any type of authentication, our app will need the following elements:
+- The user models will need proper password hashing
+- It will need to implement a system to keep a secure user session context 
+- A login form and a registration form will be needed to validate user input
+- A login view and a registration view (and templates for each) will be needed

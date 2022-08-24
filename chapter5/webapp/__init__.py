@@ -20,8 +20,6 @@ def create_app(obbject_name):
         object_name: the python path of the config object,
                      e.g. project.config.ProdConfig
     """
-    from .blog.controllers import blog_blueprint
-    from .main.controllers import main_blueprint
 
     # Flask app setup
     app = Flask(__name__)
@@ -31,9 +29,13 @@ def create_app(obbject_name):
     db.init_app(app)
     migrate.init_app(app, db)
     
-    # Blueprints
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(blog_blueprint)
+    # Modules setup
+    from .blog import create_module as blog_create_module
+    from .main import create_module as main_create_module
+    from .auth import create_module as auth_create_module
+    blog_create_module(app)
+    main_create_module(app)
+    auth_create_module(app)
     
     # Error handlers
     app.register_error_handler(404, page_not_found)
