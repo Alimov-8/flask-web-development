@@ -50,6 +50,7 @@ internal use of a very simple back-office application, or for rapidly protecting
         }
     }
 
+<br>
 
 ## Remote-user authentication
 
@@ -62,3 +63,27 @@ user, if already authenticated on the domain will no longer
 need to fill login password again (using Kerberos GSSAPI..)
 
 Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network, like the internet. It uses secret-key cryptography and a trusted third party for authenticating client-server applications and verifying users' identities.
+
+<br>
+
+## LDAP authentication
+
+Frequent Reads / Rare Writes in LDAP SERVER 
+
+The two most commonly used LDAP services nowadays are OpenLDAP (open and free)
+and Microsoft Active Directory (commercial).
+
+Example view of [LDAP auth](https://www.youtube.com/watch?v=TAhA7daZCb4)
+
+<br>
+
+## Database user model authentication
+
+Database authentication is widely used for internet-faced applications. If properly
+implemented, it can be considered a secure method. It has the advantages of being simple
+to add new users, and having no dependency on any external services. Security roles,
+groups, fine-grained access permissions, and extra user attributes are also all kept on the
+database. These can be easily changed without any external dependencies, and maintained
+within the scope change of the application.
+
+but before saving password into database it passes through hash function.

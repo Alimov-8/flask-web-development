@@ -45,4 +45,6 @@ Mastering Flask Web Development
 
   - Basic authentication
   - Remote-user authentication
+  - LDAP authentication 
+  - Database authentication
 
