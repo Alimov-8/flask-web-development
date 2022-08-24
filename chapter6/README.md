@@ -87,3 +87,27 @@ database. These can be easily changed without any external dependencies, and mai
 within the scope change of the application.
 
 but before saving password into database it passes through hash function.
+
+
+## OpenID and OAuth
+
+`OpenID` is an open-standard authentication protocol that allows users on one site to be
+authenticated by any third-party site that implements the protocol, which are
+called identity providers
+
+`OAuth` is not an authentication method—it is an access-delegation method. It was mainly
+designed to enable third-party applications to interact with the OAuth providers
+(Facebook, Twitter, and so on).
+
+
+The OAuth process is as follows:
+1. The application requests access to a user's resources from the OAuth provider.
+2. The user is redirected and authorizes the requested access.
+3. The application receives an authorization grant, and requests an access token by
+providing its own credentials (key and token) as well as the received grant.
+4. The application receives the access token (this will serve as our authentication
+method) and can be further used to interact with the provider API on behalf of
+our user.
+
+
+
