@@ -147,3 +147,13 @@ harder to brute force
 
     ... (read more from source code)
 
+
+## Protecting your form from spam (reCAPTCHA)
+
+`!Important` - nowdays, there are special extensions that can solve captcha.
+
+A CAPTCHA is a special field on a web form that checks whether the person who is entering data into the form is actually a person,
+or an automated program that is spamming your site.
+
+[Register for Captcha](https://www.google.com/recaptcha/intro/index.html) There is captcha filed in Flask WTForms
+

@@ -17,3 +17,11 @@ class CommentForm(Form):
             DataRequired(),
         ]
     )
+
+
+class PostForm(Form):
+    title = StringField('Title', [
+        DataRequired(),
+        Length(max=255)
+    ])
+    text = TextAreaField('Content', [DataRequired()])

@@ -6,6 +6,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = '\xdc\x84I\xc44\xe7@m$V\xd3\xc3\x106:G7\xebL\xa35\x9bcW'
     POSTS_PER_PAGE = 10
+    RECAPTCHA_PUBLIC_KEY = "6LcLZaghAAAAANvYuSbtE3EZEAJ6YYlz23ZW4wWm"
+    RECAPTCHA_PRIVATE_KEY = '6LcLZaghAAAAAN3swClgEgY1ZiwLmaPuE4Ww1fKj'
 
 
 class ProdConfig(Config):
