@@ -29,7 +29,7 @@ def load_user(userid):
     The load_user function takes an ID and returns the User object. When a cookie is
     validated, Flask-Login will use our function to fetch the user into the current session.
     """
-    from models import User
+    from .models import User
     return User.query.get(userid)
 
 

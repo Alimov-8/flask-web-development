@@ -48,8 +48,10 @@ Mastering Flask Web Development
   - LDAP authentication 
   - Database authentication
   - OpenID and OAuth
-
   - Initial setups
+  
   - User model modification
   - Protecting form from spam
+  - Signin/Signup views
+  - login required and 403 views
 

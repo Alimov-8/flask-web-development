@@ -35,7 +35,7 @@ class RegisterForm(Form):
         DataRequired(),
         EqualTo('password')
     ])
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
 
     def validate(self):
         form_is_valid = super(RegisterForm, self).validate()
