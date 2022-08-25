@@ -7,6 +7,7 @@ from flask_login import login_required, current_user
 from .models import db, Post, Tag, Comment, tags
 from .forms import CommentForm, PostForm
 from ..auth.models import User
+from ..auth import has_role
 
 
 blog_blueprint = Blueprint(
@@ -72,6 +73,7 @@ def home(page=1):
 
 @blog_blueprint.route('/new', methods=['GET', 'POST'])
 @login_required
+@has_role('poster')
 def new_post():
     form = PostForm()
     if form.validate_on_submit():

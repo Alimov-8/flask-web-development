@@ -49,9 +49,11 @@ Mastering Flask Web Development
   - Database authentication
   - OpenID and OAuth
   - Initial setups
-  
+
   - User model modification
   - Protecting form from spam
   - Signin/Signup views
   - login required and 403 views
+  - Role-based access control (RBAC)
+
 

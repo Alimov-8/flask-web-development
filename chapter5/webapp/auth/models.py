@@ -4,6 +4,13 @@ from . import bcrypt, AnonymousUserMixin
 from .. import db
 
 
+roles = db.Table(
+    'role_users',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('role_id', db.Integer, db.ForeignKey('role.id')),
+)
+
+
 class User(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(255), nullable=False, index=True, unique=True)
@@ -14,7 +21,16 @@ class User(db.Model):
         lazy='dynamic',
     )
 
+    roles = db.relationship(
+        'Role',
+        secondary=roles,
+        backref=db.backref('users', lazy='dynamic')
+    )
+
+
     def __init__(self, username='') -> None:
+        default = Role.query.filter_by(name="default").one()
+        self.roles.append(default)
         self.username = username
 
     def __repr__(self) -> str:
@@ -25,6 +41,13 @@ class User(db.Model):
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
+
+    def has_role(self, name):
+        for role in self.roles:
+            if role.name == name:
+                return True
+        return False
+
 
     
     @property
@@ -46,6 +69,15 @@ class User(db.Model):
     def get_id(self):
         return str(self.id)
 
-    
 
+class Role(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+    
+    def __init__(self, name):
+        self.name = name
+    
+    def __repr__(self):
+        return '<Role {}>'.format(self.name)
 
