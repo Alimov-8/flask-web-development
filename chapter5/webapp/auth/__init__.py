@@ -1,4 +1,5 @@
-from flask_login import LoginManager
+from flask_login import LoginManager, AnonymousUserMixin
+from flask_bcrypt import Bcrypt
 
 
 """
@@ -14,6 +15,12 @@ login_manager.session_protection = "strong"
 login_manager.login_message = "Please login to access this page"
 login_manager.login_message_category = "info"
 
+bcrypt = Bcrypt()
+
+
+class BlogAnonymous(AnonymousUserMixin):
+    def __init__(self):
+        self.username = 'Guest'
 
 
 @login_manager.user_loader
@@ -27,6 +34,7 @@ def load_user(userid):
 
 
 def create_module(app, **kwargs):
+    bcrypt.init_app(app)
     login_manager.init_app(app)
     from .controllers import auth_blueprint
     app.register_blueprint(auth_blueprint)

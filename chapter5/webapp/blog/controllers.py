@@ -1,7 +1,8 @@
 from sqlalchemy import desc, func
 from flask import render_template, Blueprint, flash, redirect, url_for, current_app
 
-from .models import db, Post, Tag, Comment, User, tags
+from .models import db, Post, Tag, Comment, tags
+from ..auth.models import User
 from .forms import CommentForm
 
 

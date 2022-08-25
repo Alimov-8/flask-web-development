@@ -4,3 +4,4 @@ flask-migrate
 flask_wtf
 faker
 flask-login
+flask-bcrypt

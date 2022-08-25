@@ -118,3 +118,32 @@ To run any type of authentication, our app will need the following elements:
 - It will need to implement a system to keep a secure user session context 
 - A login form and a registration form will be needed to validate user input
 - A login view and a registration view (and templates for each) will be needed
+
+
+## User model updated
+
+`bcrypt` - To best protect the user passwords, bcrypt will
+be our hashing algorithm of choice. Bcrypt is purposely designed to be inefficient and slow (milliseconds rather than microseconds) for the computer to process, thereby making it
+harder to brute force
+
+    # Example model definitions and functions from book
+
+    class BlogAnonymous(AnonymousUserMixin):
+        def __init__(self):
+            self.username = 'Guest'
+
+
+    def set_password(self, password):
+        pass
+
+    def check_password(self, password):
+        pass
+
+    def is_authenticated(self):
+        pass
+
+    def is_anonymous(self):
+        pass
+
+    ... (read more from source code)
+

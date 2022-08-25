@@ -50,3 +50,4 @@ Mastering Flask Web Development
   - OpenID and OAuth
 
   - Initial setups
+  - User model modification
