@@ -51,3 +51,5 @@ Mastering Flask Web Development
 
   - Initial setups
   - User model modification
+  - Protecting form from spam
+

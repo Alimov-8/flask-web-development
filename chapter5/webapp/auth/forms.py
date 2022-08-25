@@ -8,6 +8,7 @@ from .models import User
 class LoginForm(Form):
     username = StringField('Username', [DataRequired(), Length(max=255)])
     password = PasswordField('Password', [DataRequired()])
+    remember = BooleanField("Remember Me")
 
     def validate(self):
         form_is_valid = super(LoginForm, self).validate()
@@ -43,7 +44,7 @@ class RegisterForm(Form):
             return False
 
         user = User.query.filter_by(username=self.username.data).first()
-        
+
         if user:
             self.username.errors.append("User with that name already exists")
             return False
