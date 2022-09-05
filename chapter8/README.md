@@ -65,3 +65,12 @@ Accepted HTTP request methods are `GET, HEAD, POST, PUT, DELETE, CONNECT, OPTION
     Redirection: 3XX
     Client error: 4XX
     Server error: 5XX
+
+
+## Get requests
+For some of our GET, PUT, and DELETE requests, our API will need the ID of the post that is
+to be modified.
+
+The data to be sent to the client must be a representation of the Post objects in JSON, so
+how will our Post objects be translated? Flask Restful provides a way of translating any
+object into JSON through the fields object and the marshal_with function decorator.
