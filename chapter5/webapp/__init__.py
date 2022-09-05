@@ -33,9 +33,11 @@ def create_app(obbject_name):
     from .blog import create_module as blog_create_module
     from .main import create_module as main_create_module
     from .auth import create_module as auth_create_module
+    from .api import create_module as api_create_module
     blog_create_module(app)
     main_create_module(app)
     auth_create_module(app)
+    api_create_module(app)
     
     # Error handlers
     app.register_error_handler(404, page_not_found)

@@ -4,6 +4,7 @@ from flask import abort
 from flask_login import current_user
 from flask_login import LoginManager, AnonymousUserMixin
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
 
 """
@@ -19,7 +20,9 @@ login_manager.session_protection = "strong"
 login_manager.login_message = "Please login to access this page"
 login_manager.login_message_category = "info"
 
+
 bcrypt = Bcrypt()
+jwt = JWTManager()
 
 
 class BlogAnonymous(AnonymousUserMixin):
@@ -42,6 +45,7 @@ def create_module(app, **kwargs):
     login_manager.init_app(app)
     from .controllers import auth_blueprint
     app.register_blueprint(auth_blueprint)
+    jwt.init_app(app)
 
 
 def has_role(name):
@@ -53,3 +57,14 @@ def has_role(name):
                 abort(403)
         return functools.update_wrapper(wraps, f)
     return real_decorator
+
+
+def authenticate(username, password):
+    from .models import User
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return None
+    # Do the passwords match
+    if not user.check_password(password):
+        return None
+    return user

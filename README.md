@@ -57,3 +57,7 @@ Mastering Flask Web Development
   - Role-based access control (RBAC)
 
 
+- `Chapter 7`
+
+  - Using NoSQL with Flask
+

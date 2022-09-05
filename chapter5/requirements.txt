@@ -5,3 +5,5 @@ flask_wtf
 faker
 flask-login
 flask-bcrypt
+flask-restful
+flask-jwt-extended

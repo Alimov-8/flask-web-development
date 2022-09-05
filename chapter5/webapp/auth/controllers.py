@@ -3,12 +3,16 @@ from flask import (
     Blueprint,
     redirect,
     url_for,
-    flash
+    flash,
+    request,
+    jsonify,
 )
 from flask_login import login_user, logout_user
+from flask_jwt_extended import create_access_token
 
 from .forms import LoginForm, RegisterForm
 from .models import User
+from . import authenticate
 from .. import db
 
 
@@ -57,4 +61,24 @@ def register():
         return redirect(url_for('.login'))
 
     return render_template('register.html', form=form)
+
+
+@auth_blueprint.route('/api', methods=['POST'])
+def api():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+        
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
+    if not password:
+        return jsonify({"msg": "Missing password parameter"}), 400
+    user = authenticate(username, password)
+    if not user:
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    # Identity can be any data that is json serializable
+    access_token = create_access_token(identity=user.id)
+    return jsonify(access_token=access_token), 200
 
