@@ -57,7 +57,8 @@ Mastering Flask Web Development
   - Role-based access control (RBAC)
 
 
-- `Chapter 7`
+- `Chapter 8`
 
-  - Using NoSQL with Flask
+  - REST Apis
+  - JWT auth
 
